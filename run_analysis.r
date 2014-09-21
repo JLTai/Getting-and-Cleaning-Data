@@ -4,21 +4,21 @@ run_analysis<-function(){
 #plyr does not sort data when merge unlike merge()
 library(plyr)
 
-decoderID<-read.table("activity_labels.txt")
-setLabel<-read.table("features.txt")
+decoderID<-read.table("UCI HAR Dataset/activity_labels.txt")
+setLabel<-read.table("UCI HAR Dataset/features.txt")
 
 #loads both test and train label information
 #cleans it up and renames columns
 #i.e. Part 3
-activeID<-rbind(read.table("test/y_test.txt"),read.table("train/y_train.txt"))
-subjID<-rbind(read.table("test/subject_test.txt"),read.table("train/subject_train.txt"))
+activeID<-rbind(read.table("UCI HAR Dataset/test/y_test.txt"),read.table("UCI HAR Dataset/train/y_train.txt"))
+subjID<-rbind(read.table("UCI HAR Dataset/test/subject_test.txt"),read.table("UCI HAR Dataset/train/subject_train.txt"))
 setINFO<-join(activeID,decoderID)
 setINFO<-cbind(subjID,setINFO)
 colnames(setINFO)<-c("Subject_ID","Activity_ID","Activity_Name")
 
 #Loads both test and train data to a data frame
 #i.e. Part 1
-combineSet<-rbind(read.table("test/X_test.txt"),read.table("train/X_train.txt"))
+combineSet<-rbind(read.table("UCI HAR Dataset/test/X_test.txt"),read.table("UCI HAR Dataset/train/X_train.txt"))
 
 #Extracts only #the mean and standard deviation
 #i.e. Part 2
